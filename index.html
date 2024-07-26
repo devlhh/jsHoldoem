@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script defer src="set.js"></script>
+  <script defer src="betting.js"></script>
+  <script defer src="view.js"></script>
+  <script defer src="calc.js"></script>
+  <script defer src="card.js"></script>
+  <script defer src="buttonAbled.js"></script>
+  <script defer src="bettingButton.js"></script>
+  <script defer src="index.js"></script>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <div class="gameContainer">
+    <div class="dealerBox">
+      <div class="cardList">
+        <div class="cardBox d1"></div>
+        <div class="cardBox d2"></div>
+        <div class="cardBox d3"></div>
+        <div class="cardBox d4"></div>
+        <div class="cardBox d5"></div>
+      </div>
+
+      <div class="setCardList" id="setCardList"></div>
+  </div>
+
+  <div class="playerBox">
+    <div class="cardContainer">
+      <div class="chipBox p1_chip"></div>
+      <div class="cardBox p1_1" id="p1"></div>
+      <div class="cardBox p1_2" id="p1"></div>
+      <div class="p1_batting_money" id="p1_batting_money"></div>
+      <div class="p1_total_money" id="p1_total_money"></div>
+      <div class="bettingTitle" id="p1_bettingTitle"></div>
+    </div>
+
+    <div class="cardContainer">
+      <div class="chipBox p2_chip"></div>
+      <div class="cardBox p2_1" id="p2"></div>
+      <div class="cardBox p2_2" id="p2"></div>
+      <div class="p2_batting_money" id="p2_batting_money"></div>
+      <div class="p2_total_money" id="p2_total_money"></div>
+      <div class="bettingTitle" id="p2_bettingTitle"></div>
+    </div>
+  </div>
+
+  <div class="btnBox">
+    <button onclick="finish()">종료</button>
+  </div>
+
+  <div class="battingBox" id="betBox">
+    <input value="0" id="raseInput" class="raseInputBoxHidden">
+    <button class="raseConfirmHidden" id="raseConfirm" onclick="onRaseConfirm()">확인</button>
+    <div class="moneyBox">
+      <div>배팅금액</div>
+      <div id="total_batting_money">0</div>
+    </div>
+    <button id="bat_btn_call" onclick="callBtn()">콜</button>
+    <button id="bat_btn_rase" onclick="raseBtn()">레이즈</button>
+    <button id="bat_btn_check">체크</button>
+    <button id="bat_btn_fold">폴드</button>
+  </div>
+</body>
+</html>
