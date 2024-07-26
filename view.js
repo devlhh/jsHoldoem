@@ -13,9 +13,11 @@ function playerTotalMoneyView(p_index, index) {
 }
 
 // 플레이어 현재 배팅 금액
-function playerBetView(p_index, index) {
+function playerBetView(p_index, index, title) {
   const playerBatting = document.getElementById(`p${p_index}_batting_money`);
   playerBatting.innerHTML = player[index].currentBet;
+
+  betTitleView(p_index, title);
 }
 
 // 총배팅금액 view

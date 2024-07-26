@@ -1,6 +1,7 @@
 // sb -> 입장비 반값
 // bb -> 입장비 그대로
 // 나머진 입장비 x
+
 function enterCalc(sb, bb) {
   sb.money = sb.money - enterBatting / 2; // 플레이어 총 금액
   sb.enterBetting = enterBatting / 2; // 플레이어 입장비
@@ -25,11 +26,11 @@ function callCalc(prevPlayerIndex, currentPlayerIndex) {
 
   currentPlayer.isCall = true; // 콜뱃 여부
 
-  playerTotalMoneyView(currentPlayerIndex + 1, currentPlayerIndex);
-  playerBetView(currentPlayerIndex + 1, currentPlayerIndex);
-  onAllBettingSum(callBet);
+  playerTotalMoneyView(currentPlayerIndex + 1, currentPlayerIndex); // 플레이어 총 금액
+  playerBetView(currentPlayerIndex + 1, currentPlayerIndex, "call"); // 플레이어 배팅 금액
+  onAllBettingSum(callBet); // 총 배팅 금액
 
-  allCallResult();
+  allCallResult(); // 전체 플레이어 콜 여부확인
 }
 
 // 총 배팅 금액 합
@@ -46,7 +47,14 @@ function allCallResult() {
     }
   });
 
+  // 다 콜했으면 card 뽑기
   if (callCheck) {
-    openCardEvent();
+    drawCard();
+  }
+}
+
+function resetPlayerCall() {
+  for (let i = 0; i < player.length; i++) {
+    player[i].isCall = false;
   }
 }

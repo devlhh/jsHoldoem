@@ -221,6 +221,7 @@ function setPlayer() {
       isRase: false,
       isCheck: false,
       isFold: false,
+      cardDraw: false,
     };
   }
 }
