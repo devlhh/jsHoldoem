@@ -10,6 +10,12 @@ function betBtnAbled() {
   foldBtnTag.disabled = "";
 }
 
+function noCheckBetBtnAbled() {
+  callBtnTag.disabled = "";
+  raseBtnTag.disabled = "";
+  foldBtnTag.disabled = "";
+}
+
 function betBtnDisAbled() {
   callBtnTag.disabled = "disabled";
   raseBtnTag.disabled = "disabled";

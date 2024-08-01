@@ -1,4 +1,3 @@
-let playerDraw = false;
 let openCardIndex = 0;
 
 // player 카드
@@ -31,71 +30,9 @@ function openCardEvent(index) {
   createOpenCard(`d${index + 1}`, index, index); // 카드 만들기
 }
 
-function drawCard() {
-  console.log("draw");
-  betBtnDisAbled();
+function drawCard() {}
 
-  if (openCardIndex === 5) {
-    return;
-  }
-  if (!playerDraw) {
-    playerDrawCard();
-  } else {
-    if (openCardIndex < 3) {
-      for (let i = 0; i < 3; i++) {
-        setTimeout(() => {
-          if (i === 2) {
-            resetPlayerCall(); // 플레이어 call 했는지 다시  reset
-            betBtnAbled();
-          }
-          openCardEvent(openCardIndex);
-          openCardIndex += 1;
-        }, i * 500);
-      }
-    } else {
-      openCardEvent(openCardIndex);
-      resetPlayerCall();
-      openCardIndex += 1;
-
-      if (openCardIndex === 5) {
-        betBtnDisAbled();
-      }
-
-      if (openCardIndex !== 5) {
-        setTimeout(() => {
-          betBtnAbled();
-        }, 500);
-      }
-    }
-  }
-
-  if (openCardIndex === 4) {
-    betBtnDisAbled();
-  }
-}
-
-function playerDrawCard() {
-  for (let i = 0; i < player.length; i++) {
-    //플레아어 첫 2개 카드 나눠주기
-    for (let i = 0; i < playerCount; i++) {
-      setTimeout(() => {
-        firstCard(i);
-      }, i * 100);
-    }
-  }
-
-  setTimeout(() => {
-    for (let i = 0; i < playerCount; i++) {
-      setTimeout(() => {
-        if (i === playerCount - 1) {
-          betBtnAbled();
-        }
-        secondCard(i);
-      }, i * 400);
-    }
-  }, 1000);
-  playerDraw = true;
-}
+function playerDrawCard() {}
 
 // 플레이어 카드
 function firstCard(playerIndex) {

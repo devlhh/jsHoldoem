@@ -1,227 +1,107 @@
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #2C3E50;
-}
-
-.gameContainer {
+.container {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  width: 1500px;
-  height: 700px;
+  position: relative;
+  margin: 0 auto;
+  width: 1800px;
+  height: 800px;
+  margin-top: 70px;
   border: 1px solid red;
-  margin-top: 100px;
 }
 
-.dealerBox {
+.openCardBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  margin-top: 40px;
+  width: 90%;
+  height: 300px;
+}
+
+.cardBox {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  min-height: 300px;
-  max-height: 300px;
-
-  & > .cardList {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-  
-    & > .cardBox {
-      text-align: center;
-      line-height: 220px;
-      width: 200px;
-      height: 240px;
-      border: 1px solid red;
-      animation: shuffle 1s;
-      margin: 16px auto;
-
-      & > .card {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 200px;
-        height: 240px;
-        background: white;
-        position: absolute;
-      }
-    }
-  }
-
-  & > .setCardList {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    width: 300px;
-    height: 100%;
-    border: 1px solid red;
-
-    & > .setCard {
-      position: absolute;
-      text-align: center;
-      width: 180px;
-      height: 220px;
-      box-shadow: 1px 1px 1px black;
-    }
-  }
+  width: 180px;
+  height: 220px;
+  border: 1px solid red;
 }
 
-@keyframes shuffle {
-  from {
-    transform: translate(-50%) rotate(-10deg);
-  }
-  to {
-  }
-}
-
-.playerBox {
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-end;
-  width: 1450px;
-  flex: 1;
-
-  & > .cardContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 260px;
-    border: 1px solid greenyellow;
-    width: 440px;
-    margin: 40px auto;
-    position: relative;
-
-    & > .cardBox {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 200px;
-      height: 240px;
-      border: 1px solid red;
-      margin: 8px auto;
-
-      & > .card {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 200px;
-        height: 240px;
-        background: white;
-        position: absolute;
-      }
-    }
-  }
-}
-
-.battingBox {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.deckCardBox {
+  width: 180px;
+  height: 220px;
+  border: 1px solid gold;
+  right: 0;
   position: relative;
 }
 
-.btnBox {
+.card {
+  text-align: center;
+  line-height: 220px;
+  width: 160px;
+  height: 200px;
+  border: 1px solid red;
+}
+
+.deckCard {
+  position: absolute;
+  text-align: center;
+  line-height: 220px;
+  width: 160px;
+  height: 200px;
+  background: rgb(247, 244, 244);
+  border: 1px solid rgb(190, 190, 190);
+  bottom: -320px;
+  right: 800px;
+  opacity: 0;
+}
+
+.potContainer {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 120px;
-}
-
-.moneyBox {
-  position: absolute;
-  color: white;
-  top: -200px;
-  text-align: center;
-  padding-left: 8px;
-  padding-right: 8px;
-  border: 2px solid darkseagreen;
-  border-radius: 4px;
-}
-
-.p1_batting_money, .p2_batting_money {
-  position: absolute;
-  bottom: -70px;
-  border-radius: 4px;
-  height: 30px;
-  line-height: 30px;
-  padding-left: 8px;
-  padding-right: 8px;
-  color: white;
-  font-weight: 600;
-}
-
-.p1_total_money, .p2_total_money {
-  position: absolute;
-  bottom: -200px;
+  flex-direction: column;
   border: 1px solid red;
-  border-radius: 4px;
-  height: 30px;
-  line-height: 30px;
-  padding-left: 8px;
-  padding-right: 8px;
-  color: white;
-  font-weight: 600;
+  width: 90%;
+  height: 80px;
+  margin-bottom: 20px;
 }
 
-.chipBox {
+.btnBox {
   position: absolute;
-  width: 140px;
-  height: 240px;
+  bottom: -40px;
+}
+
+.playerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 90%;
+  flex: 1;
+  margin-bottom: 20px;
   border: 1px solid red;
+
+  & > .playerBox {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px solid red;
+    width: 440px;
+    height: 100%;
+  }
 }
-
-.p1_chip {
-  left: -156px;
-}
-
-.p2_chip {
-  right: -156px;
-}
-
-.raseInputBox {
-  text-align: right;
-  position: absolute;
-  width: 120px;
-  height: 20px;
-  bottom: -70px;
-}
-
-.raseInputBoxHidden {
-  display: none;
-}
-
-.raseConfirm {
-  position: absolute;
-  bottom: -70px;
-  right: -40px;
-}
-
-.raseConfirmHidden {
-  display: none;
-}
-
-.bettingTitle {
-  position: absolute;
-  color: chartreuse;
-  top: -40px;
-  font-size: 21px;
-  font-weight: 700;
-}
-
-
-@keyframes betTitleAnimation {
+/* @keyframes open1 {
   from {
-    top: 0;
+    bottom: 51px;
+    right: 21px;
     opacity: 1;
   }
   to {
-    top: -40px;
-    opacity: 0;
-  }
-}
+    bottom: 39px;
+    right: 1428px;
+    opacity: 1;
+  } 
+} */
