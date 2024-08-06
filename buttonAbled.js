@@ -1,24 +1,47 @@
-const callBtnTag = document.getElementById("bat_btn_call");
-const raseBtnTag = document.getElementById("bat_btn_rase");
-const checkBtnTag = document.getElementById("bat_btn_check");
-const foldBtnTag = document.getElementById("bat_btn_fold");
+const callBtnTag = document.querySelector(".bet_btn_call");
+const raseBtnTag = document.querySelector(".bet_btn_rase");
+const checkBtnTag = document.querySelector(".bet_btn_check");
+const foldBtnTag = document.querySelector(".bet_btn_fold");
+
+const resetButton = document.querySelector(".resetBtn");
+const drawButton = document.querySelector(".drawBtn");
+const playerDrawButton = document.querySelector(".playerDrawBtn");
 
 function betBtnAbled() {
-  callBtnTag.disabled = "";
-  raseBtnTag.disabled = "";
-  checkBtnTag.disabled = "";
-  foldBtnTag.disabled = "";
+  callBtnTag.disabled = false;
+  raseBtnTag.disabled = false;
+  checkBtnTag.disabled = false;
+  foldBtnTag.disabled = false;
 }
 
 function noCheckBetBtnAbled() {
-  callBtnTag.disabled = "";
-  raseBtnTag.disabled = "";
-  foldBtnTag.disabled = "";
+  callBtnTag.disabled = false;
+  raseBtnTag.disabled = false;
+  foldBtnTag.disabled = false;
+  checkBtnTag.disabled = true;
 }
 
 function betBtnDisAbled() {
-  callBtnTag.disabled = "disabled";
-  raseBtnTag.disabled = "disabled";
-  checkBtnTag.disabled = "disabled";
-  foldBtnTag.disabled = "disabled";
+  callBtnTag.disabled = true;
+  raseBtnTag.disabled = true;
+  checkBtnTag.disabled = true;
+  foldBtnTag.disabled = true;
+}
+
+function noCallBetBtnAbled() {
+  callBtnTag.disabled = true;
+  raseBtnTag.disabled = false;
+  checkBtnTag.disabled = false;
+  foldBtnTag.disabled = false;
+}
+
+function testDisAbled() {
+  resetButton.disabled = true;
+  drawButton.disabled = true;
+  playerDrawButton.disabled = true;
+}
+
+function noDrawTest() {
+  resetButton.disabled = false;
+  drawButton.disabled = false;
 }

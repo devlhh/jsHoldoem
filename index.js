@@ -1,18 +1,28 @@
-const deckCardBoxDiv = document.getElementById("deckCardBox");
-let viewCardCount = 24;
-let cards = [];
-const resetButton = document.querySelector(".resetBtn");
-const drawButton = document.querySelector(".drawBtn");
-const playerDrawButton = document.querySelector(".playerDrawBtn");
-
 const open1 = document.getElementById("open1");
 const open2 = document.getElementById("open2");
 
 let openCount = 0;
 
+let dealerIndex = 0;
+let playerTurn = 0; // turn은 sb부터
+let prevTurn = 0;
+let sbIndex = 0;
+let bbIndex = 0;
+let drawIndex = 0;
+
+let pocket = false;
+let flop = false;
+let turn = false;
+let river = false;
+
 function play() {
-  setCards();
-  resetDeckCard();
+  betBtnDisAbled();
+  setCard(); // 54장카드만들기
+  setOpenCard(); // 오픈카드 초기화
+  setPlayer(); // 플레이어 초기화
+  setView();
+  setMoney();
+  resetDeckCard(); // 화면 deck 카드 초기화
 }
 
 function finish() {
@@ -21,95 +31,60 @@ function finish() {
 }
 
 function init() {
-  cards = [];
-  openCount = 0;
+  cardDeck = [];
+  openCard = [];
+  player = [];
+
   viewCardCount = 24;
+  openCount = 0;
+  cardAmount = 0;
+  pot = 0;
 }
 
-function setCards() {
-  for (let i = 0; i < 54; i++) {
-    cards.push(i + 1);
+function nextTurn() {
+  // 프리플랍일때 모든 턴 돌면
+  if (pocket) {
+    console.log("첫번째");
+    if (playerTurn === bbIndex) {
+      betBtnDisAbled();
+      setTimeout(() => {
+        removeBetTitle();
+      }, 500);
+    }
+  } else {
+    console.log("두번째");
+    console.log(playerTurn);
+    if (playerTurn === sbIndex) {
+      setTimeout(() => {
+        removeBetTitle();
+      }, 500);
+    }
+  }
+
+  if (playerTurn === player.length - 1) {
+    playerTurn = 0;
+  } else {
+    playerTurn += 1;
+  }
+
+  if (playerTurn === 0) {
+    prevTurn = player.length - 1;
+  } else {
+    prevTurn = playerTurn - 1;
   }
 }
 
-function resetDeckCard() {
-  // 기존 deck 제거
-  while (deckCardBoxDiv.firstChild) {
-    deckCardBoxDiv.removeChild(deckCardBoxDiv.firstChild);
+function removeBetTitle() {
+  for (let i = 0; i < player.length; i++) {
+    const div = document.getElementById(`p${i + 1}_betTitle`);
+    div.innerHTML = "";
+
+    if (i === player.length - 1) {
+      setTimeout(() => {
+        raseCheck();
+      }, 500);
+    }
   }
-
-  // 버튼 비활성화
-  resetButton.disabled = true;
-  drawButton.disabled = true;
-  playerDrawButton.disabled = true;
-
-  // deck 나눠주는 delay
-  let delay = 0.0;
-
-  // deck 나누기
-  for (let i = 0; i < viewCardCount; i++) {
-    const deck = document.createElement("div");
-    deck.className = "deckCard";
-    deck.setAttribute("id", `deck${i + 1}`);
-    deck.style.zIndex = `${i + 1}`;
-
-    deckCardBoxDiv.append(deck);
-    deck.offsetHeight;
-
-    // 카드 위치
-    deck.style.bottom = `calc(${49}px + ${i}px)`;
-    deck.style.right = `calc(${10}px + ${i}px)`;
-    deck.style.opacity = "1";
-    deck.style.transition =
-      "bottom 0.5s ease-out, right 0.5s ease-out, opacity 0.5s ease";
-    deck.style.transitionDelay = `${delay}s`;
-
-    delay += 0.05;
-  }
-
-  // 일정 시간 후 버튼 활성화 (애니메이션 종료 후)
-  setTimeout(() => {
-    resetButton.disabled = false;
-    drawButton.disabled = false;
-    playerDrawButton.disabled = false;
-  }, delay * 1000 + 500); // delay * 1000 ms (전체 애니메이션 시간) + 500 ms (마진)
-}
-
-function drawCard() {
-  // 다 오픈하면 draw 종료
-  if (openCount === 5) return;
-
-  // open CardBox 카드 위치
-  const offset = document.getElementById(`open${openCount + 1}`);
-
-  let deck = document.getElementById(`deck${viewCardCount}`);
-  deck.offsetHeight;
-
-  // 덱 뽑고 o
-  deck.textContent = cards.pop();
-  deck.style.bottom = "49px";
-  deck.style.right = `calc(${1448}px - ${offset.offsetLeft}px)`;
-  deck.style.transition = "bottom 0.5s ease-in, right 0.5s ease";
-  openCount += 1;
-  viewCardCount -= 1;
-}
-
-function playerDrawCard() {
-  // open CardBox 카드 위치
-  const offset = document.getElementById(`p2_1`);
-  console.log(offset.offsetLeft);
-
-  let deck = document.getElementById(`deck${viewCardCount}`);
-  deck.offsetHeight;
-
-  // 덱 뽑고 o
-  deck.textContent = cards.pop();
-  deck.style.transition = "right 0.5s ease";
-  deck.style.bottom = "-373px";
-  deck.style.right = `calc(${1538}px - ${offset.offsetLeft}px)`;
-  deck.style.transitionDuration = "2s";
-  openCount += 1;
-  viewCardCount -= 1;
 }
 
 play();

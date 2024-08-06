@@ -4,6 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="index.css" />
+  <script src="set.js" defer></script>
+  <script src="view.js" defer></script>
+  <script src="enterBetting.js" defer></script>
+  <script src="betting.js" defer></script>
+  <script src="card.js" defer></script>
+  <script src="calc.js" defer></script>
+  <script src="buttonAbled.js" defer></script>
   <script src="index.js" defer></script>
   <title>Document</title>
   <style>
@@ -37,39 +44,78 @@
 
     <div class="potContainer">
       <div>pot</div>
-      <div>0</div>
+      <div class="potMoney" id="potMoney">0</div>
     </div>
 
     <div class="playerContainer">
-      <div class="playerBox">
-        <div class="cardBox" id="p1_1">
-          <div class="card"></div>
+      <div class="playerBox" id="p1_container">
+        <div class="cardContainer" id="p1_cardContainer">
+          <div class="cardBox" id="p1_1">
+            <div class="card"></div>
+          </div>
+          <div class="cardBox" id="p1_2">
+            <div class="card"></div>
+          </div>
         </div>
-        <div class="cardBox" id="p1_2">
-          <div class="card"></div>
+        <div class="betBox" id="p1_box">
+          <div>
+            <div class="player_betBox" id="p1_betBox"></div>
+            <div class="player_moneyBox" id="p1_money"></div>
+          </div>
+
+          <div id="d"></div>
         </div>
+
+        <div class="betTitle" id="p1_betTitle"></div>
+      </div>
+
+      <div class="playerBox"  id="p2_container">
+        <div class="cardContainer"  id="p2_cardContainer">
+          <div class="cardBox" id="p2_1">
+            <div class="card"></div>
+          </div>
+          <div class="cardBox" id="p2_2">
+            <div class="card"></div>
+          </div>
+        </div>
+        <div class="betBox" id="p2_box">
+          <div>
+            <div class="player_betBox" id="p2_betBox"></div>
+            <div class="player_moneyBox" id="p2_money"></div>
+          </div>
+          <div id="d"></div>
+        </div>
+
+        <div class="betTitle" id="p2_betTitle"></div>
       </div>
 
       <div class="playerBox">
-        <div class="cardBox" id="p2_1">
-          <div class="card"></div>
+        <div class="cardContainer">
+          <div class="cardBox" id="p3_1">
+            <div class="card"></div>
+          </div>
+          <div class="cardBox" id="p3_2">
+            <div class="card"></div>
+          </div>
         </div>
-        <div class="cardBox" id="p2_2">
-          <div class="card"></div>
-        </div>
-      </div>
+        <div class="betBox" id="p3_box">
+          <div>
+            <div class="player_betBox" id="p3_betBox"></div>
+            <div class="player_moneyBox" id="p3_money"></div>
+          </div>
 
-      <div class="playerBox">
-        <div class="cardBox">
-          <div class="card"></div>
+          <div id="d"></div>
         </div>
-        <div class="cardBox">
-          <div class="card"></div>
-        </div>
+
+        <div class="betTitle" id="p3_betTitle"></div>
       </div>
     </div>
 
     <div class="btnBox">
+      <button class="bet_btn_call" onclick="callBet()">콜</button>
+      <button class="bet_btn_rase">레이즈</button>
+      <button class="bet_btn_check" onclick="checkBet()">체크</button>
+      <button class="bet_btn_fold">폴드</button>
       <button class="resetBtn" onclick="finish()">종료</button>
       <button class="drawBtn" onclick="drawCard()">오픈</button>
       <button class="playerDrawBtn" onclick="playerDrawCard()">분배</button>

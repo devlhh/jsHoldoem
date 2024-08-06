@@ -1,200 +1,110 @@
-let cardAmount = 52;
-let cardDeck = [];
-let openCard = [];
-let player = [];
+const deckCardBoxDiv = document.getElementById("deckCardBox"); // deckCardk 놓는 박스
 
+const potDiv = document.getElementById("potMoney"); // 전체 pot 보여주는 box
+
+let cardDeck = []; // 54장카드
+let openCard = []; // 오픈된 카드
+let player = []; // 플레이어
+let marks = ["♠", "◆", "♥", "♣"]; // 카드 심볼
+let cardAmount = 0; // 현재 카드 수
+let viewCardCount = 24; // 화면상 보여줄 deck 수
+
+const playerCount = 3; // 유저 수
+
+let pot = 0;
+
+// 54장 카드덱 문양, 번호넣기
 function setCard() {
-  for (let i = 0; i < 13; i++) {
-    if (i < 10) {
-      if (i === 0) {
-        cardDeck[i] = {
-          symbol: "♠",
+  for (let i = 0; i < 4; i++) {
+    const mark = marks[i];
+
+    for (let j = 0; j < 13; j++) {
+      if (j === 0) {
+        cardDeck[cardAmount] = {
+          symbol: mark,
           number: 1,
-          view: "♠ A",
+          view: `${mark} A`,
         };
       } else {
-        cardDeck[i] = {
-          symbol: "♠",
-          number: i + 1,
-          view: `♠ ${i + 1}`,
+        cardDeck[cardAmount] = {
+          symbol: mark,
+          number: j + 1,
+          view: `${mark} ${j + 1}`,
         };
       }
-    }
 
-    if (i === 10) {
-      cardDeck[i] = {
-        symbol: "♠",
-        number: 10,
-        view: "♠ J",
-      };
-    }
-
-    if (i === 11) {
-      cardDeck[i] = {
-        symbol: "♠",
-        number: 11,
-        view: "♠ Q",
-      };
-    }
-
-    if (i === 12) {
-      cardDeck[i] = {
-        symbol: "♠",
-        number: 12,
-        view: "♠ K",
-      };
-    }
-  }
-
-  for (let i = 13; i < 27; i++) {
-    if (i < 23) {
-      if (i === 13) {
-        cardDeck[i] = {
-          symbol: "◆",
-          number: 1,
-          view: "◆ A",
-        };
-      } else {
-        cardDeck[i] = {
-          symbol: "◆",
-          number: i - 12,
-          view: `◆ ${i - 12}`,
+      if (j === 10) {
+        cardDeck[cardAmount] = {
+          symbol: mark,
+          number: 10,
+          view: `${mark} J`,
         };
       }
-    }
 
-    if (i === 23) {
-      cardDeck[i] = {
-        symbol: "◆",
-        number: i - 12,
-        view: `◆ J`,
-      };
-    }
-
-    if (i === 24) {
-      cardDeck[i] = {
-        symbol: "◆",
-        number: i - 12,
-        view: `◆ Q`,
-      };
-    }
-
-    if (i === 25) {
-      cardDeck[i] = {
-        symbol: "◆",
-        number: i - 12,
-        view: `◆ K`,
-      };
-    }
-  }
-
-  for (let i = 26; i < 39; i++) {
-    if (i < 36) {
-      if (i === 26) {
-        cardDeck[i] = {
-          symbol: "♥",
-          number: i - 25,
-          view: `♥ A`,
-        };
-      } else {
-        cardDeck[i] = {
-          symbol: "♥",
-          number: i - 25,
-          view: `♥ ${i - 25}`,
+      if (j === 11) {
+        cardDeck[cardAmount] = {
+          symbol: mark,
+          number: 11,
+          view: `${mark} Q`,
         };
       }
-    }
 
-    if (i === 36) {
-      cardDeck[i] = {
-        symbol: "♥",
-        number: i - 25,
-        view: `♥ J`,
-      };
-    }
-
-    if (i === 37) {
-      cardDeck[i] = {
-        symbol: "♥",
-        number: i - 25,
-        view: `♥ Q`,
-      };
-    }
-
-    if (i === 38) {
-      cardDeck[i] = {
-        symbol: "♥",
-        number: i - 25,
-        view: `♥ K`,
-      };
-    }
-  }
-
-  for (let i = 39; i < 52; i++) {
-    if (i < 49) {
-      if (i === 39) {
-        cardDeck[i] = {
-          symbol: "♣",
-          number: i - 38,
-          view: `♣ A`,
-        };
-      } else {
-        cardDeck[i] = {
-          symbol: "♣",
-          number: i - 38,
-          view: `♣ ${i - 38}`,
+      if (j === 12) {
+        cardDeck[cardAmount] = {
+          symbol: mark,
+          number: 12,
+          view: `${mark} K`,
         };
       }
-    }
 
-    if (i === 49) {
-      cardDeck[i] = {
-        symbol: "♣",
-        number: i - 38,
-        view: `♣ J`,
-      };
-    }
-
-    if (i === 50) {
-      cardDeck[i] = {
-        symbol: "♣",
-        number: i - 38,
-        view: `♣ Q`,
-      };
-    }
-
-    if (i === 51) {
-      cardDeck[i] = {
-        symbol: "♣",
-        number: i - 38,
-        view: `♣ K`,
-      };
+      // 현재 카드 양
+      cardAmount += 1;
     }
   }
-
+  // 카드 랜덤 배열
   cardDeck.sort(() => Math.random() - 0.5);
+}
 
-  for (let i = 0; i < cardAmount; i++) {
-    setTimeout(() => {
-      const cardItems = document.createElement("div");
-      cardItems.className = `setCard card${i + 1}`;
-      cardItems.id = `card${i + 1}`;
-      cardItems.style.zIndex = i * 2;
-
-      if (i < 10) {
-        cardItems.style.bottom = `${i * 5 + 30}px`;
-        cardItems.style.right = `${i * 4 + 16}px`;
-      } else {
-        cardItems.style.bottom = `${9 * 5 + 30}px`;
-        cardItems.style.right = `${9 * 4 + 16}px`;
-      }
-
-      cardItems.style.background = "#F0F0F0";
-
-      const setCardTag = document.getElementsByClassName("setCardList")[0];
-      setCardTag.appendChild(cardItems);
-    }, i * 20);
+// 화면상에 보여주는카드
+function resetDeckCard() {
+  // 기존 deck 제거
+  while (deckCardBoxDiv.firstChild) {
+    deckCardBoxDiv.removeChild(deckCardBoxDiv.firstChild);
   }
+
+  // 버튼 비활성화
+  resetButton.disabled = true;
+  drawButton.disabled = true;
+  playerDrawButton.disabled = true;
+
+  // deck 나눠주는 delay
+  let delay = 0.0;
+
+  // deck 나누기
+  for (let i = 0; i < viewCardCount; i++) {
+    const deck = document.createElement("div");
+    deck.className = "deckCard";
+    deck.setAttribute("id", `deck${i + 1}`);
+    deck.style.zIndex = `${i + 1}`;
+
+    deckCardBoxDiv.append(deck);
+    deck.offsetHeight;
+
+    // 카드 위치
+    deck.style.bottom = `calc(${49}px + ${i}px)`;
+    deck.style.right = `calc(${10}px + ${i}px)`;
+    deck.style.opacity = "1";
+    deck.style.transition =
+      "bottom 0.5s ease-out, right 0.5s ease-out, opacity 0.5s ease";
+    deck.style.transitionDelay = `${delay}s`;
+
+    delay += 0.05;
+  }
+
+  // 일정 시간 후 버튼 활성화 (애니메이션 종료 후)
+  setTimeout(() => {
+    onEnterBetting();
+  }, delay * 1000 + 500); // delay * 1000 ms (전체 애니메이션 시간) + 500 ms (마진)
 }
 
 function setOpenCard() {
@@ -221,17 +131,28 @@ function setPlayer() {
       isRase: false,
       isCheck: false,
       isFold: false,
-      cardDraw: false,
     };
+  }
+}
+
+function setView() {
+  const potBox = document.getElementById("potMoney");
+  potBox.innerHTML = "0";
+
+  for (let i = 0; i < player.length; i++) {
+    const betBox = document.getElementById(`p${i + 1}_box`);
+    betBox.removeChild(betBox.lastElementChild);
   }
 }
 
 function setMoney() {
   for (let i = 0; i < player.length; i++) {
-    const playerTotalMoney = document.getElementById(`p${i + 1}_total_money`);
-    playerTotalMoney.innerHTML = player[i].money;
+    const moneyBox = document.getElementById(`p${i + 1}_money`);
+    moneyBox.innerHTML = player[i].money;
+  }
 
-    const playerBatting = document.getElementById(`p${i + 1}_batting_money`);
-    playerBatting.innerHTML = "0";
+  for (let i = 0; i < player.length; i++) {
+    const betBox = document.getElementById(`p${i + 1}_betBox`);
+    betBox.innerHTML = player[i].currentBet;
   }
 }

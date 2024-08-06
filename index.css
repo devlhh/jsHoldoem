@@ -65,9 +65,14 @@
   align-items: center;
   flex-direction: column;
   border: 1px solid red;
+  border-radius: 8px;
   width: 90%;
   height: 80px;
   margin-bottom: 20px;
+
+  & > div:first-child {
+    margin-bottom: 8px;
+  }
 }
 
 .btnBox {
@@ -86,13 +91,67 @@
 
   & > .playerBox {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
-    border: 1px solid red;
+    flex-direction: column;
+    position: relative;
+    border: 1px solid yellow;
     width: 440px;
     height: 100%;
+    
+    & > .cardContainer {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      width: 100%;
+      flex: 1;
+    }
+
+    & > .betBox {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      width: 100%;
+      border: 1px solid red;
+      height: 80px;
+      flex-direction: column;
+
+      & > div:first-child {
+        display: flex;
+        width: 100%;
+        border: 1px solid red;
+
+        & > .player_betBox {
+          text-align: right;
+          width: 200px;
+          line-height: 40px;
+          padding-right: 8px;
+          height: 40px;
+          border: 1px solid green;
+          margin-right: 8px;
+        }
+
+        & > .player_moneyBox {
+          flex: 1;
+          text-align: right;
+          line-height: 40px;
+          height: 40px;
+          padding-right: 8px;
+          border: 1px solid red;
+        }
+      }
+
+      & > div:nth-child(2) {
+        line-height: 40px;
+      }
+    }
   }
 }
+
+.delaer, sb, bb {
+  position: absolute;
+}
+
 /* @keyframes open1 {
   from {
     bottom: 51px;
@@ -105,3 +164,17 @@
     opacity: 1;
   } 
 } */
+
+.betTitle {
+  position: absolute;
+  top: 0;
+}
+
+@keyframes betTitleAni{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

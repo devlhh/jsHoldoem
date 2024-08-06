@@ -1,4 +1,15 @@
-function callBtn() {}
+function callBet() {
+  betTitleView(playerTurn + 1, "call");
+  callCalc();
+  playerTotalMoneyView(playerTurn + 1, playerTurn);
+  playerBetView(playerTurn + 1, playerTurn);
+  nextTurn();
+}
+
+function checkBet() {
+  betTitleView(playerTurn + 1, "check");
+  nextTurn();
+}
 
 function raseBtn() {
   const raseInput = document.getElementById("raseInput");
