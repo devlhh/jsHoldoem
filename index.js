@@ -44,7 +44,7 @@ function init() {
 function nextTurn() {
   // 프리플랍일때 모든 턴 돌면
   if (pocket) {
-    console.log("첫번째");
+    console.log("첫");
     if (playerTurn === bbIndex) {
       betBtnDisAbled();
       setTimeout(() => {
@@ -52,7 +52,7 @@ function nextTurn() {
       }, 500);
     }
   } else {
-    console.log("두번째");
+    console.log("두");
     console.log(playerTurn);
     if (playerTurn === sbIndex) {
       setTimeout(() => {
