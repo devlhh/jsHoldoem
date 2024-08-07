@@ -26,8 +26,8 @@ function allBettingMoneyView() {
 }
 
 // 플레이어 카드 view
-function playerCardView(index, deck) {
-  deck.textContent = player[index].deck[index].view;
+function playerCardView(p_index, deckIndex, deck) {
+  deck.textContent = player[p_index].deck[deckIndex].view;
   viewCardCount -= 1;
 }
 

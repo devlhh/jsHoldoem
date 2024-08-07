@@ -36,7 +36,7 @@ function setCard() {
       if (j === 10) {
         cardDeck[cardAmount] = {
           symbol: mark,
-          number: 10,
+          number: 11,
           view: `${mark} J`,
         };
       }
@@ -44,7 +44,7 @@ function setCard() {
       if (j === 11) {
         cardDeck[cardAmount] = {
           symbol: mark,
-          number: 11,
+          number: 12,
           view: `${mark} Q`,
         };
       }
@@ -52,7 +52,7 @@ function setCard() {
       if (j === 12) {
         cardDeck[cardAmount] = {
           symbol: mark,
-          number: 12,
+          number: 13,
           view: `${mark} K`,
         };
       }
@@ -103,8 +103,46 @@ function resetDeckCard() {
 
   // 일정 시간 후 버튼 활성화 (애니메이션 종료 후)
   setTimeout(() => {
-    onEnterBetting();
+    setDealerTurn(); // 딜러 턴
+    setBlindTurn();
+    setGameType();
+    playerDrawCard(); // 플레이어 카드 분배
   }, delay * 1000 + 500); // delay * 1000 ms (전체 애니메이션 시간) + 500 ms (마진)
+}
+
+function setDealerTurn() {
+  dealerIndex = 0;
+  dealerView();
+}
+
+function setBlindTurn() {
+  if (dealerIndex === player.length - 1) {
+    sbIndex = 0;
+    bbIndex = 1;
+  } else {
+    sbIndex = dealerIndex + 1;
+    bbIndex = dealerIndex + 2;
+    drawIndex = sbIndex;
+  }
+
+  sbView();
+  bbView();
+
+  setBetTurn();
+}
+
+function setBetTurn() {
+  if (bbIndex === player.length - 1) {
+    betStartTurn = 0;
+    betEndTurn = bbIndex;
+  } else {
+    betStartTurn = bbIndex + 1;
+    betEndTurn = bbIndex;
+  }
+}
+
+function setGameType() {
+  currentGame = gameType[0];
 }
 
 function setOpenCard() {
@@ -112,7 +150,7 @@ function setOpenCard() {
     openCard[i] = {
       deck: [],
       symbol: [],
-      number: [],
+      number: "",
     };
   }
 }
@@ -123,14 +161,13 @@ function setPlayer() {
       id: `player${i}`,
       money: 5000000,
       deck: [],
-      symbol: [],
-      number: [],
       enterBetting: 0,
       currentBet: 0,
       isCall: false,
       isRase: false,
       isCheck: false,
       isFold: false,
+      counts: [],
     };
   }
 }
