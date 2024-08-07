@@ -1,6 +1,6 @@
 function callBet() {
-  betTitleView(playerTurn + 1, "call");
   callCalc();
+  betTitleView(playerTurn + 1, "call");
   playerTotalMoneyView(playerTurn + 1, playerTurn);
   playerBetView(playerTurn + 1, playerTurn);
   nextTurn();

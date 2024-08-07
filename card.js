@@ -3,7 +3,9 @@ let rpx = 0;
 
 function drawCard() {
   // 다 오픈하면 draw 종료
-  if (openCount === 5) return;
+  if (openCount === 5) {
+    return;
+  }
 
   // open CardBox 카드 위치
   const offset = document.getElementById(`open${openCount + 1}`);
@@ -19,11 +21,17 @@ function drawCard() {
   deck.style.right = `calc(${1448}px - ${offset.offsetLeft}px)`;
   deck.style.transition = "bottom 0.5s ease-in, right 0.5s ease";
   openCount += 1;
+
+  if (openCount === 5) {
+    cardPair();
+  }
 }
 
 function playerDrawCard() {
+  // 플레이어들 첫 카드
   firstDraw();
 
+  // 플레이어들 두 번째 카드
   setTimeout(() => {
     secondDraw();
   }, 1000);
@@ -33,15 +41,15 @@ function firstDraw() {
   // 버튼 비활성화
   betBtnDisAbled();
 
-  // 딜러를기준으로 왼쪽부터 draw
+  // sb부터 카드 분배
   for (let i = drawIndex; i < player.length; i++) {
     setTimeout(() => {
       let deck = document.getElementById(`deck${viewCardCount}`);
       deck.offsetHeight;
 
-      // 덱 뽑고 o
-      player[i].deck[i] = cardDeck.pop();
-      playerCardView(i, deck);
+      // 덱 뽑기
+      player[i].deck[0] = cardDeck.pop();
+      playerCardView(i, 0, deck);
 
       deck.style.transform = `translate(calc(-1395px + ${
         i * 589
@@ -51,17 +59,16 @@ function firstDraw() {
       hpx += 1;
       rpx += 1;
 
-      if (i + 1 === player.length) {
+      // 0 ~ sb 이전 순서까지 카드분배
+      if (i === player.length - 1) {
         for (let i = 0; i < drawIndex; i++) {
           setTimeout(() => {
-            const offset = document.getElementById(`p${i + 1}_1`);
-
             let deck = document.getElementById(`deck${viewCardCount}`);
             deck.offsetHeight;
 
             // 덱 뽑고 o
-            player[i].deck[i] = cardDeck.pop();
-            playerCardView(i, deck);
+            player[i].deck[0] = cardDeck.pop();
+            playerCardView(i, 0, deck);
 
             deck.style.transform = `translate(calc(-1395px + ${
               i * 589
@@ -80,17 +87,15 @@ function firstDraw() {
 
 // 딜러를기준으로 왼쪽부터 draw
 function secondDraw() {
+  // sb ~ 끝플레이어
   for (let i = drawIndex; i < player.length; i++) {
     setTimeout(() => {
-      const offset = document.getElementById(`p${i + 1}_2`);
-
       let deck = document.getElementById(`deck${viewCardCount}`);
       deck.offsetHeight;
 
       // 덱 뽑고 o
-      // 덱 뽑고 o
-      player[i].deck[i] = cardDeck.pop();
-      playerCardView(i, deck);
+      player[i].deck[1] = cardDeck.pop();
+      playerCardView(i, 1, deck);
 
       deck.style.transform = `translate(calc(-1175px + ${
         i * 589
@@ -99,15 +104,16 @@ function secondDraw() {
       hpx += 1;
       rpx += 1;
 
-      if (i + 1 === player.length) {
+      // 끝플레이어왔으면 0 ~ sb순서까지
+      if (i === player.length - 1) {
         for (let i = 0; i < drawIndex; i++) {
           setTimeout(() => {
             let deck = document.getElementById(`deck${viewCardCount}`);
             deck.offsetHeight;
 
             // 덱 뽑고 o
-            player[i].deck[i] = cardDeck.pop();
-            playerCardView(i, deck);
+            player[i].deck[1] = cardDeck.pop();
+            playerCardView(i, 1, deck);
 
             deck.style.transform = `translate(calc(-1175px + ${
               i * 589
@@ -117,28 +123,14 @@ function secondDraw() {
 
             hpx += 1;
             rpx += 1;
-            if (i + 1 === drawIndex) {
-              // 플레이어 카드 다 분배 후 버튼 활성화
-              setTimeout(() => {
-                // 현재 플레이어 총 금액, 배팅금액 div 표시
-                for (let i = 0; i < player.length; i++) {
-                  setTimeout(() => {
-                    if (i + 1 === player.length) {
-                      // 버튼 비활성화
-                      remainCallMoney();
-                    }
-
-                    onAllBettingSum(player[i].currentBet); // 총배팅 금액합산
-                    playerBetView(i + 1, i, ""); // 플레이어 배팅금액
-                    playerTotalMoneyView(i + 1, i); // 플레이어 총 금액
-
-                    hpx = 0;
-                    rpx = 0;
-                  }, i * 300);
-                }
-              }, 1000);
-            }
           }, i * 500);
+
+          if (i === drawIndex - 1) {
+            setTimeout(() => {
+              onEnterBetting();
+              noCheckBetBtnAbled();
+            }, i * 500 + drawIndex * 1000);
+          }
         }
       }
     }, i * 600);

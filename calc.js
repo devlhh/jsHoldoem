@@ -13,50 +13,19 @@ function callCalc() {
   player[playerTurn].isCall = true;
 
   onAllBettingSum(remainMoney);
-  remainCallMoney();
 }
 
 function remainCallMoney() {
+  let result = false;
   const betMoney = player[prevTurn].currentBet;
   const remainCallMoney = betMoney - player[playerTurn].currentBet;
 
   if (remainCallMoney > 0) {
-    noCheckBetBtnAbled();
-  } else {
-    betBtnAbled();
+    result = true;
   }
+  return result;
 }
 
-function raseCheck() {
-  let rase = false;
-  for (let i = 0; i < player.length; i++) {
-    const raseResult = player[i].isRase;
-    player[i].isCall = false;
-    player[i].isRase = false;
-
-    if (raseResult) {
-      rase = true;
-    }
-  }
-
-  if (rase) {
-  } else {
-    noCallBetBtnAbled();
-
-    if (pocket) {
-      pocket = false;
-    }
-
-    for (let i = 0; i < 3; i++) {
-      if (openCount < 3) {
-        setTimeout(() => {
-          drawCard();
-        }, i * 300);
-      } else {
-        drawCard();
-      }
-    }
-  }
-}
+function raseCheck() {}
 
 function resetPlayerCall() {}

@@ -178,3 +178,9 @@
     opacity: 1;
   }
 }
+
+.pair {
+  position: absolute;
+  top: 0;
+  left: -60px;
+}
