@@ -115,30 +115,215 @@ function gameCheck() {
   }
 }
 
-function cardPair() {
-  for (let i = 0; i < player.length; i++) {
-    let count = 0;
-    let players = player[i];
-
+// 카드 페어 만드는 함수
+async function cardPair() {
+  // 오픈된카드랑 비교하기위해 합침
+  await player.forEach((players) => {
     for (let j = 0; j < 5; j++) {
       players.deck.push(openCard[j].deck[j]);
     }
 
-    console.log(players);
-  }
+    // 숫자 정렬
+    players.deck.sort((a, b) => a.number - b.number);
+  });
 
+  // 카드 중복 찾기
+  await player.forEach((players) => {
+    const result = countPairs(players.deck);
+    players.pair = result;
+  });
+
+  // 페어 view로 보여주기
   for (let i = 0; i < player.length; i++) {
-    let count = 0;
+    const pairDiv = document.getElementById(`p${i + 1}_pair`);
+    pairDiv.innerHTML = player[i].pair;
+  }
+}
 
-    for (let j = 0; j < player[i].deck.length - 1; j++) {
-      if (player[i].deck[0].number === player[i].deck[j + 1].number) {
-        count += 1;
-      }
+// 페어 찾는 함수
+function countPairs(playerDeck) {
+  let one = false;
+  let two = false;
+  let three = false;
+  let four = false;
+  let straight = false;
+  let flush = false;
+
+  let value = "";
+  let result = "";
+
+  let strightCount = 0;
+  for (let i = 0; i < playerDeck.length - 1; i++) {
+    sum = playerDeck[i].number - playerDeck[i + 1].number;
+
+    if (sum === -1) {
+      strightCount += 1;
+    } else {
+      strightCount = 0;
     }
-    player[i].counts.push(count);
+
+    if (strightCount === 5) {
+      straight = true;
+    }
   }
 
-  console.log(player);
+  if (!straight && !flush) {
+    // 카드 숫자들 포함되면 카운트 + 1씩
+    const numberCounts = {};
+    const numberValues = {};
+
+    playerDeck.forEach((card) => {
+      numberCounts[card.number] = (numberCounts[card.number] || 0) + 1;
+      numberValues[card.number] = card.number;
+    });
+
+    console.log(numberCounts, numberValues);
+
+    // 객체값들 배열로 반환
+    const pairs = Object.values(numberCounts);
+    const values = Object.keys(numberValues);
+
+    // 페어 찾기
+    pairs.forEach((x, i) => {
+      if (x === 4) {
+        four = true;
+
+        if (values[i] === "1") {
+          value = `A`;
+        }
+        if (value === `A`) return;
+
+        if (values[i] === "13") {
+          value = `K`;
+        }
+        if (value === `K`) return;
+
+        if (values[i] === "12") {
+          value = `Q`;
+        }
+        if (value === `Q`) return;
+
+        if (values[i] === "11") {
+          value = `J`;
+        }
+        if (value === `J`) return;
+
+        value = `${values[i]}`;
+      } else if (x === 3) {
+        console.log(x, values[i]);
+        three = true;
+
+        if (values[i] === "1") {
+          value = `A`;
+        }
+        if (value === `A`) return;
+
+        if (values[i] === "13") {
+          value = `K`;
+        }
+        if (value === `K`) return;
+
+        if (values[i] === "12") {
+          value = `Q`;
+        }
+        if (value === `Q`) return;
+
+        if (values[i] === "11") {
+          value = `J`;
+        }
+        if (value === `J`) return;
+
+        value = `${values[i]}`;
+      } else if (one && x === 2) {
+        two = true;
+
+        if (values[i] === "1") {
+          value = `A`;
+        }
+        if (value === `A`) return;
+
+        if (values[i] === "13") {
+          value = `K`;
+        }
+        if (value === `K`) return;
+
+        if (values[i] === "12") {
+          value = `Q`;
+        }
+        if (value === `Q`) return;
+
+        if (values[i] === "11") {
+          value = `J`;
+        }
+        if (value === `J`) return;
+
+        value = `${values[i]}`;
+      } else if (x === 2) {
+        one = true;
+
+        if (values[i] === "1") {
+          value = `A`;
+        }
+        if (value === `A`) return;
+
+        if (values[i] === "13") {
+          value = `K`;
+        }
+        if (value === `K`) return;
+
+        if (values[i] === "12") {
+          value = `Q`;
+        }
+        if (value === `Q`) return;
+
+        if (values[i] === "11") {
+          value = `J`;
+        }
+        if (value === `J`) return;
+
+        value = `${values[i]}`;
+      } else {
+        if (values[i] === "1") {
+          value = `A`;
+        }
+        if (value === `A`) return;
+
+        if (values[i] === "13") {
+          value = `K`;
+        }
+        if (value === `K`) return;
+
+        if (values[i] === "12") {
+          value = `Q`;
+        }
+        if (value === `Q`) return;
+
+        if (values[i] === "11") {
+          value = `J`;
+        }
+        if (value === `J`) return;
+
+        value = `${values[i]}`;
+      }
+    });
+  }
+
+  if (straight) {
+    result = `${value} straight`;
+  } else if (four) {
+    result = `${value} four card`;
+  } else if (two && three) {
+    result = `${value} full house`;
+  } else if (three) {
+    result = `${value} trips`;
+  } else if (two) {
+    result = `${value} two pair`;
+  } else if (one) {
+    result = `${value} one pair`;
+  } else {
+    result = `${value} high`;
+  }
+  return result;
 }
 
 function winner() {

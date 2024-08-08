@@ -97,6 +97,7 @@ function resetDeckCard() {
     deck.style.transition =
       "bottom 0.5s ease-out, right 0.5s ease-out, opacity 0.5s ease";
     deck.style.transitionDelay = `${delay}s`;
+    deck.style.boxShadow = "1px 1px lightgray";
 
     delay += 0.05;
   }
@@ -167,7 +168,7 @@ function setPlayer() {
       isRase: false,
       isCheck: false,
       isFold: false,
-      counts: [],
+      pair: "",
     };
   }
 }
