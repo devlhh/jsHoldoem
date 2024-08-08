@@ -1,4 +1,4 @@
-let hpx = 0;
+let hpx = 1;
 let rpx = 0;
 
 function drawCard() {
@@ -18,7 +18,7 @@ function drawCard() {
   openCardView(openCount, deck);
 
   deck.style.bottom = "49px";
-  deck.style.right = `calc(${1448}px - ${offset.offsetLeft}px)`;
+  deck.style.right = `calc(${1449}px - ${offset.offsetLeft}px)`;
   deck.style.transition = "bottom 0.5s ease-in, right 0.5s ease";
   openCount += 1;
 

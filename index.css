@@ -1,3 +1,7 @@
+body {
+  background-color: black;
+}
+
 .container {
   display: flex;
   justify-content: flex-start;
@@ -8,7 +12,8 @@
   width: 1800px;
   height: 800px;
   margin-top: 70px;
-  border: 1px solid red;
+  background: rgb(4, 68, 4);
+  border-radius: 4px;
 }
 
 .openCardBox {
@@ -27,7 +32,6 @@
   align-items: center;
   width: 180px;
   height: 220px;
-  border: 1px solid red;
 }
 
 .deckCardBox {
@@ -64,11 +68,12 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  border: 1px solid red;
   border-radius: 8px;
-  width: 90%;
   height: 80px;
   margin-bottom: 20px;
+  color: rgb(179, 12, 250);
+  font-weight: 800;
+  font-size: 22px;
 
   & > div:first-child {
     margin-bottom: 8px;
@@ -87,7 +92,6 @@
   width: 90%;
   flex: 1;
   margin-bottom: 20px;
-  border: 1px solid red;
 
   & > .playerBox {
     display: flex;
@@ -112,14 +116,13 @@
       justify-content: flex-start;
       align-items: center;
       width: 100%;
-      border: 1px solid red;
       height: 80px;
       flex-direction: column;
+      color: white;
 
       & > div:first-child {
         display: flex;
         width: 100%;
-        border: 1px solid red;
 
         & > .player_betBox {
           text-align: right;
@@ -127,8 +130,9 @@
           line-height: 40px;
           padding-right: 8px;
           height: 40px;
-          border: 1px solid green;
-          margin-right: 8px;
+          margin-right: 8px;  
+          margin-left: 4px;
+          border: 1px solid red;
         }
 
         & > .player_moneyBox {
@@ -137,6 +141,7 @@
           line-height: 40px;
           height: 40px;
           padding-right: 8px;
+          margin-right: 4px;  
           border: 1px solid red;
         }
       }
@@ -168,6 +173,9 @@
 .betTitle {
   position: absolute;
   top: 0;
+  color: aqua;
+  font-size: 20px;
+  font-weight: 800;
 }
 
 @keyframes betTitleAni{
@@ -181,6 +189,12 @@
 
 .pair {
   position: absolute;
+  text-align: right;
+  padding-right: 4px;
+  width: 84px;
   top: 0;
-  left: -60px;
+  left: -92px;
+  font-size: 20px;
+  color: white;
+  font-weight: 800;
 }
